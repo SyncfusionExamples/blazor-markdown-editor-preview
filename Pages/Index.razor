@@ -1,0 +1,72 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.RichTextEditor;
+@using Markdig;
+
+<div class="control-section">
+    <div class="e-rte-preview" style="height:500px;">
+        <div class="container">
+            <div class="row">
+                <div class="col" style="height:500px;width:400px;">
+                    <SfRichTextEditor SaveInterval="1" EditorMode="EditorMode.Markdown" Height="100%" @bind-Value="@mdValue">
+                        <RichTextEditorEvents ValueChange="onValueChange"></RichTextEditorEvents>
+                        <RichTextEditorToolbarSettings Items="@tools" Type="ToolbarType.MultiRow"></RichTextEditorToolbarSettings>
+                    </SfRichTextEditor>
+                </div>
+                <div class="col" style="height:500px;width:400px">
+                    <SfRichTextEditor Readonly="true" Height="100%" @bind-Value="@htmlValue">
+                        <RichTextEditorToolbarSettings Enable="false"></RichTextEditorToolbarSettings>
+                    </SfRichTextEditor>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    private List<ToolbarItemModel> tools = new List<ToolbarItemModel>()
+{
+                new ToolbarItemModel() { Command = ToolbarCommand.Bold },
+                new ToolbarItemModel() { Command = ToolbarCommand.Italic },
+                new ToolbarItemModel() { Command = ToolbarCommand.StrikeThrough },
+                new ToolbarItemModel() { Command = ToolbarCommand.SubScript },
+                new ToolbarItemModel() { Command = ToolbarCommand.SuperScript },
+                new ToolbarItemModel() { Command = ToolbarCommand.Separator },
+                new ToolbarItemModel() { Command = ToolbarCommand.Formats },
+                new ToolbarItemModel() { Command = ToolbarCommand.OrderedList },
+                new ToolbarItemModel() { Command = ToolbarCommand.UnorderedList },
+                new ToolbarItemModel() { Command = ToolbarCommand.Separator },
+                new ToolbarItemModel() { Command = ToolbarCommand.CreateLink },
+                new ToolbarItemModel() { Command = ToolbarCommand.Image },
+                new ToolbarItemModel() { Command = ToolbarCommand.CreateTable },
+                new ToolbarItemModel() { Command = ToolbarCommand.Separator },
+                new ToolbarItemModel() { Command = ToolbarCommand.Undo },
+                new ToolbarItemModel() { Command = ToolbarCommand.Redo }
+    };
+
+    public static string mdValue { get; set; } = @"
+The sample is added to showcase **markdown editing**.
+Type or edit the content and apply formatting to view markdown formatted content.
+We can add our own custom formation syntax for the Markdown formation, [sample link] (https://ej2.syncfusion.com/home/).
+The third-party library <b>Marked</b> is used in this sample to convert markdown into HTML content";
+
+    private MarkdownPipeline pipeline { get; set; }
+    private string htmlValue { get; set; }
+
+    protected override void OnInitialized()
+    {
+        pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+        this.htmlValue = Markdig.Markdown.ToHtml(mdValue, pipeline);
+        base.OnInitialized();
+    }
+    private void onValueChange(Syncfusion.Blazor.RichTextEditor.ChangeEventArgs args)
+    {
+        if (args.Value == null)
+        {
+            this.htmlValue = null;
+        }
+        else
+        {
+            this.htmlValue = Markdig.Markdown.ToHtml(args.Value, pipeline);
+        }
+    }
+}
