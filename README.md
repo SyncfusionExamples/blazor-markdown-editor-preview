@@ -17,4 +17,4 @@ Step 2: Open the solution file using the Visual Studio 2019 Preview 16.6.0 Previ
 
 Step 3: Restore the NuGet packages by rebuilding the solution.
 
-Step 5: Run the project.
+Step 4: Run the project.
