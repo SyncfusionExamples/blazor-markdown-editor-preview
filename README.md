@@ -4,15 +4,16 @@ The [Blazor Markdown Editor](https://www.syncfusion.com/blazor-components/blazor
 
 This example shows how to integrate the Markdig third-party library into Syncfusion Blazor Rich Text Editor’s Markdown editor (MD editor) to preview the Markdown.
 
-## Project prerequisites
-Make sure you have the compatible versions of .NET Core on your machine before starting to work on this project. You also need the following:
+## Prerequisites
 
-* [Visual Studio 2019 (version 16.4+)]( https://visualstudio.microsoft.com/downloads)
-* [.NET Core SDK 3.1.2+](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-- [Markdig](https://www.nuget.org/packages/Markdig/).
+* Visual Studio 2022
 
-## How to run this application
-To run this application, you need to first clone or download the ‘blazor-markdown-editor-preview’ repository and then open it in Visual Studio 2019. Now, build and run your project to view the output.
+## How to run the project
+
+* Checkout this project to a location in your disk.
+* Open the solution file using the Visual Studio 2022.
+* Restore the NuGet packages by rebuilding the solution.
+* Run the project.
 
 ## Further help
 To get more help, check out the [ASP.NET Core Blazor documentation](https://docs.microsoft.com/en-us/aspnet/core/blazor).
